@@ -1,0 +1,63 @@
+.admin {
+  padding: 40px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.admin h1 {
+  margin-bottom: 30px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+
+  text-align: center;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.stat-card h2 {
+  color: #0f766e;
+  font-size: 2rem;
+}
+
+.recent-bookings {
+  background: white;
+
+  margin-top: 40px;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+@media(max-width:768px){
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+}

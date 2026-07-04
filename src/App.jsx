@@ -1,115 +1,52 @@
+import { HashRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Camping from "./pages/Camping";
+import Cabs from "./pages/Cabs";
+import Tours from "./pages/Tours";
+import Contact from "./pages/Contact";
+import Booking from "./pages/Booking";
+import Footer from "./components/Footer";
+import Resorts from "./pages/Resorts";
 import "./App.css";
+import Admin from "./pages/Admin";
+import { FaWhatsapp } from "react-icons/fa";
 
 function App() {
   return (
-    <>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="logo">Winternote</div>
+    <HashRouter>
+      <Navbar />
 
-        <ul className="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#rooms">Rooms</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/camping" element={<Camping />} />
+        <Route path="/cabs" element={<Cabs />} />
+        <Route path="/tours" element={<Tours />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/resorts" element={<Resorts />} />
+      </Routes>
 
-        <button className="book-btn">Book Now</button>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="hero" id="home">
-        <div className="overlay"></div>
+      <a
+        href="https://wa.me/918848738997?text=Hello%20TravelYourWay%20Holidays,%20I%20want%20to%20know%20about%20your%20packages."
+        target="_blank"
+        rel="noreferrer"
+        className="whatsapp-btn"
+      >
+        <FaWhatsapp />
+      </a>
+      <a
+        href="tel:8848738997"
+        className="call-btn"
+      >
+        📞
+      </a>
 
-        <div className="hero-content">
-          <span className="tagline">
-            Luxury Honeymoon Resort In Munnar
-          </span>
+      <Footer />
 
-          <h1>
-            Experience Romance
-            <br />
-            Above The Clouds
-          </h1>
-
-          <p>
-            Discover breathtaking mountain views, luxury cottages,
-            candlelight dinners, and unforgettable honeymoon moments
-            amidst the misty hills of Munnar.
-          </p>
-
-          <div className="hero-buttons">
-            <button className="primary-btn">
-              Explore Resort
-            </button>
-
-            <button className="secondary-btn">
-              View Packages
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="about" id="about">
-        <div className="about-image">
-          <img
-            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
-            alt="Resort"
-          />
-        </div>
-
-        <div className="about-content">
-          <span>ABOUT US</span>
-
-          <h2>
-            A Luxury Escape
-            <br />
-            In The Heart Of Munnar
-          </h2>
-
-          <p>
-            Nestled among rolling tea plantations and mist-covered
-            mountains, our resort offers an unforgettable blend of
-            comfort, elegance, and nature.
-          </p>
-
-          <p>
-            Whether you're celebrating your honeymoon, anniversary,
-            or simply seeking tranquility, every stay is designed to
-            create cherished memories.
-          </p>
-
-          <button className="primary-btn">
-            Discover More
-          </button>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="features">
-        <div className="feature-card">
-          <h3>Luxury Suites</h3>
-          <p>
-            Spacious rooms with panoramic mountain views.
-          </p>
-        </div>
-
-        <div className="feature-card">
-          <h3>Private Dining</h3>
-          <p>
-            Romantic candlelight dinners under the stars.
-          </p>
-        </div>
-
-        <div className="feature-card">
-          <h3>Spa & Wellness</h3>
-          <p>
-            Relax with rejuvenating wellness treatments.
-          </p>
-        </div>
-      </section>
-    </>
+    </HashRouter>
   );
 }
 
