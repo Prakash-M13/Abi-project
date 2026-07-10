@@ -1,67 +1,168 @@
+import { useEffect, useState } from "react";
+import API from "../services/api";
 import "./Admin.css";
 
 function Admin() {
-  return (
-    <div className="admin">
+  const [bookings, setBookings] = useState([]);
+  const [filter, setFilter] = useState("All");
 
+  useEffect(() => {
+    fetchBookings();
+  }, []);
+
+  const fetchBookings = async () => {
+    try {
+      const res = await API.get("/bookings");
+      setBookings(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateStatus = async (
+    id,
+    status
+  ) => {
+    try {
+      await API.put(
+        `/bookings/${id}/status`,
+        { status }
+      );
+
+      fetchBookings();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const total = bookings.length;
+
+  const tours = bookings.filter(
+    (b) => b.serviceType === "Tour"
+  ).length;
+
+  const camps = bookings.filter(
+    (b) => b.serviceType === "Camping"
+  ).length;
+
+  const cabs = bookings.filter(
+    (b) => b.serviceType === "Cab"
+  ).length;
+
+  const resorts = bookings.filter(
+    (b) => b.serviceType === "Resort"
+  ).length;
+
+  const filteredBookings =
+    filter === "All"
+      ? bookings
+      : bookings.filter(
+        (booking) =>
+          booking.serviceType === filter
+      );
+
+  return (
+    <div className="admin-page">
       <h1>Admin Dashboard</h1>
 
       <div className="stats-grid">
-
         <div className="stat-card">
-          <h2>120</h2>
+          <h2>{total}</h2>
           <p>Total Bookings</p>
         </div>
 
-        <div className="stat-card">
-          <h2>25</h2>
-          <p>Tours</p>
+        <div
+          className="stat-card"
+          onClick={() => setFilter("Tour")}
+        >
+          <h2>{tours}</h2>
+          <p>Tour Bookings</p>
         </div>
 
-        <div className="stat-card">
-          <h2>18</h2>
-          <p>Resorts</p>
+        <div
+          className="stat-card"
+          onClick={() => setFilter("Camping")}
+        >
+          <h2>{camps}</h2>
+          <p>Camping Bookings</p>
         </div>
 
-        <div className="stat-card">
-          <h2>12</h2>
-          <p>Cabs</p>
+        <div
+          className="stat-card"
+          onClick={() => setFilter("Cab")}
+        >
+          <h2>{cabs}</h2>
+          <p>Cab Bookings</p>
         </div>
 
+        <div
+          className="stat-card"
+          onClick={() => setFilter("Resort")}
+        >
+          <h2>{resorts}</h2>
+          <p>Resort Bookings</p>
+        </div>
       </div>
 
-      <div className="recent-bookings">
+      <h2 className="booking-title">
+        {filter} Bookings
+      </h2>
 
-        <h2>Recent Bookings</h2>
+      {filteredBookings.map((booking) => (
+        <div
+          className="booking-card"
+          key={booking._id}
+        >
+          <h3>
+            {booking.customerName}
+          </h3>
 
-        <table>
+          <p>
+            <strong>Phone:</strong>{" "}
+            {booking.phone}
+          </p>
 
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Service</th>
-            </tr>
-          </thead>
+          <p>
+            <strong>Service:</strong>{" "}
+            {booking.serviceType}
+          </p>
 
-          <tbody>
-            <tr>
-              <td>Rahul</td>
-              <td>9876543210</td>
-              <td>Tour</td>
-            </tr>
+          <p>
+            <strong>
+              Booking Date:
+            </strong>{" "}
+            {new Date(
+              booking.bookingDate
+            ).toLocaleDateString()}
+          </p>
 
-            <tr>
-              <td>Priya</td>
-              <td>9876543211</td>
-              <td>Resort</td>
-            </tr>
-          </tbody>
+          <p>
+            <strong>Status:</strong>
+          </p>
 
-        </table>
+          <select
+            value={booking.status}
+            onChange={(e) =>
+              updateStatus(
+                booking._id,
+                e.target.value
+              )
+            }
+          >
+            <option value="Pending">
+              Pending
+            </option>
 
-      </div>
+            <option value="Confirmed">
+              Confirmed
+            </option>
 
+            <option value="Cancelled">
+              Cancelled
+            </option>
+          </select>
+        </div>
+      ))}
     </div>
   );
 }

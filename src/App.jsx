@@ -11,10 +11,13 @@ import Resorts from "./pages/Resorts";
 import "./App.css";
 import Admin from "./pages/Admin";
 import { FaWhatsapp } from "react-icons/fa";
+import ScrollToTop from "./components/ScrollToTop";
+import MyBookings from "./pages/MyBookings";
 
 function App() {
   return (
     <HashRouter>
+      <ScrollToTop /> 
       <Navbar />
 
       <Routes>
@@ -26,6 +29,7 @@ function App() {
         <Route path="/booking" element={<Booking />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/resorts" element={<Resorts />} />
+        <Route path="/my-bookings" element={<MyBookings />}/>
       </Routes>
 
 

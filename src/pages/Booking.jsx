@@ -4,19 +4,25 @@ import { useLocation } from "react-router-dom";
 
 function Booking() {
   const location = useLocation();
-  console.log(location.state);
+
   const [formData, setFormData] = useState({
-  customerName: "",
-  phone: "",
-  email: "",
-  serviceType: location.state?.serviceType || "Tour",
-  packageId: location.state?.packageName || "",
-});
+    customerName: "",
+    phone: "",
+    email: "",
+    serviceType:
+      location.state?.serviceType || "Tour",
+    packageName:
+      location.state?.packageName || "",
+  });
+
+  const [loading, setLoading] =
+    useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.value,
     });
   };
 
@@ -24,20 +30,29 @@ function Booking() {
     e.preventDefault();
 
     try {
-      await API.post("/bookings", formData);
+      setLoading(true);
 
-      alert("Booking Submitted Successfully!");
+      await API.post(
+        "/bookings",
+        formData
+      );
+
+      alert(
+        "Booking Submitted Successfully!"
+      );
 
       setFormData({
         customerName: "",
         phone: "",
         email: "",
         serviceType: "Tour",
-        packageId: "",
+        packageName: "",
       });
     } catch (error) {
       console.log(error);
       alert("Booking Failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,19 +60,23 @@ function Booking() {
     <div className="booking-page">
       <h1>Book Your Trip</h1>
 
-      <form onSubmit={handleSubmit} className="booking-form">
-
+      <form
+        onSubmit={handleSubmit}
+        className="booking-form"
+      >
         <input
           type="text"
           name="customerName"
           placeholder="Your Name"
-          value={formData.customerName}
+          value={
+            formData.customerName
+          }
           onChange={handleChange}
           required
         />
 
         <input
-          type="text"
+          type="tel"
           name="phone"
           placeholder="Phone Number"
           value={formData.phone}
@@ -75,28 +94,47 @@ function Booking() {
 
         <select
           name="serviceType"
-          value={formData.serviceType}
+          value={
+            formData.serviceType
+          }
           onChange={handleChange}
         >
-          <option value="Tour">Tour</option>
-          <option value="Camping">Camping</option>
-          <option value="Cab">Cab</option>
-          <option value="Resort">Resort</option>
+          <option value="Tour">
+            Tour
+          </option>
+
+          <option value="Camping">
+            Camping
+          </option>
+
+          <option value="Cab">
+            Cab
+          </option>
+
+          <option value="Resort">
+            Resort
+          </option>
         </select>
 
         <input
           type="text"
-          name="packageId"
+          name="packageName"
           placeholder="Package Name"
-          value={formData.packageId}
+          value={
+            formData.packageName
+          }
           onChange={handleChange}
           required
         />
 
-        <button type="submit">
-          Submit Booking
+        <button
+          type="submit"
+          disabled={loading}
+        >
+          {loading
+            ? "Submitting..."
+            : "Submit Booking"}
         </button>
-
       </form>
     </div>
   );

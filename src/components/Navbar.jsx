@@ -1,6 +1,7 @@
 import "./Navbar.css";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { FaClipboardList } from "react-icons/fa";
 
 import {
   FaBars,
@@ -81,6 +82,9 @@ function Navbar() {
           >
             Book Now
           </NavLink>
+          <NavLink to="/my-bookings">
+            <FaClipboardList /> My Bookings
+          </NavLink>
 
         </div>
 
@@ -113,6 +117,12 @@ function Navbar() {
           onClick={closeSidebar}
         >
           Home
+        </NavLink>
+        <NavLink
+          to="/my-bookings"
+          onClick={closeSidebar}
+        >
+          📋 My Bookings
         </NavLink>
 
         {/* MOBILE SERVICES */}

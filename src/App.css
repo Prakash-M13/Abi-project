@@ -227,3 +227,201 @@
   transform: scale(1.1);
   transition: 0.3s;
 }
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #ddd;
+  border-top: 6px solid #0f766e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 50px auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  text-align: center;
+  color: red;
+  margin-top: 40px;
+}
+
+.empty-message {
+  text-align: center;
+  color: #666;
+  margin-top: 40px;
+}
+.search-box {
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin: 30px auto;
+
+  padding: 14px 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+
+  font-size: 16px;
+  outline: none;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.search-box:focus {
+  border-color: #0f766e;
+}
+
+.reviews-section {
+  padding: 80px 20px;
+  background: #f8fafc;
+}
+
+.reviews-section h2 {
+  text-align: center;
+  color: #0f766e;
+  margin-bottom: 50px;
+  font-size: 2.2rem;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
+  gap: 30px;
+}
+
+.review-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+
+  box-shadow: 0 8px 25px
+    rgba(0, 0, 0, 0.08);
+
+  text-align: center;
+
+  transition: 0.3s;
+}
+
+.review-card:hover {
+  transform: translateY(-10px);
+}
+
+.stars {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.review-card p {
+  color: #555;
+  line-height: 1.7;
+}
+
+.review-card h3 {
+  margin-top: 25px;
+  color: #0f766e;
+}
+
+.review-card span {
+  color: #777;
+}
+.my-bookings-box {
+  max-width: 500px;
+  margin: 40px auto;
+
+  display: flex;
+  gap: 15px;
+}
+
+.my-bookings-box input {
+  flex: 1;
+
+  padding: 14px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.my-bookings-box button {
+  border: none;
+
+  padding: 14px 22px;
+
+  background: #0f766e;
+  color: white;
+
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .my-bookings-box {
+    flex-direction: column;
+  }
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.confirmed {
+  color: green;
+  font-weight: bold;
+}
+
+.cancelled {
+  color: red;
+  font-weight: bold;
+}
+
+.my-bookings-box {
+  max-width: 500px;
+  margin: 40px auto;
+
+  display: flex;
+  gap: 15px;
+}
+
+.my-bookings-box input {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.my-bookings-box button {
+  border: none;
+  padding: 14px 22px;
+  background: #0f766e;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.booking-card {
+  background: white;
+  padding: 25px;
+  margin: 20px auto;
+  max-width: 700px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px
+    rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+  .my-bookings-box {
+    flex-direction: column;
+  }
+}

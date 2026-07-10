@@ -4,6 +4,11 @@ import API from "../services/api";
 
 function Camping() {
   const [campings, setCampings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,48 +17,96 @@ function Camping() {
 
   const fetchCampings = async () => {
     try {
+      setLoading(true);
+
       const res = await API.get("/campings");
-  console.log(res.data);
 
       setCampings(res.data.data);
+      setError("");
     } catch (error) {
       console.log(error);
+      setError(
+        "Unable to load camping packages."
+      );
+    } finally {
+      setLoading(false);
     }
   };
-  console.log(campings);
+  const filteredCampings = campings.filter(
+  (camp) =>
+    camp.title
+      .toLowerCase()
+      .includes(search.toLowerCase()) ||
+    camp.location
+      .toLowerCase()
+      .includes(search.toLowerCase())
+);
 
   return (
     <div className="page">
       <h1>Adventure Camping</h1>
+      <input
+  type="text"
+  placeholder="Search Camping..."
+  className="search-box"
+  value={search}
+  onChange={(e) =>
+    setSearch(e.target.value)
+  }
+/>
 
-      <div className="tour-grid">
-        {campings.map((camp) => (
-          <div className="tour-card" key={camp._id}>
-            <img src={camp.image} alt={camp.title} />
+      {loading && <div className="loader"></div>}
 
-            <h2>{camp.title}</h2>
+      {error && <h2 className="error">{error}</h2>}
 
-            <p>{camp.location}</p>
+      {!loading &&
+        !error &&
+        campings.length === 0 && (
+          <h2 className="empty-message">
+            No Camping Packages Available
+          </h2>
+        )}
 
-            <h3>₹{camp.price}</h3>
+      {!loading &&
+        !error &&
+        campings.length > 0 && (
+          <div className="tour-grid">
+            {filteredCampings.map((camp) => (
+              <div
+                className="tour-card"
+                key={camp._id}
+              >
+                <img
+                  src={camp.image}
+                  alt={camp.title}
+                />
 
-            <p>{camp.description}</p>
+                <h2>{camp.title}</h2>
 
-            <button
-              onClick={() =>
-                navigate("/booking", {
-                  state: {
-                    packageName: camp.title,
-                    serviceType: "Camping",
-                  },
-                })
-              }
-            >
-              Book Camping
-            </button>
+                <p>{camp.location}</p>
+
+                <h3>₹{camp.price}</h3>
+
+                <p>{camp.description}</p>
+
+                <button
+                  onClick={() =>
+                    navigate("/booking", {
+                      state: {
+                        packageName:
+                          camp.title,
+                        serviceType:
+                          "Camping",
+                      },
+                    })
+                  }
+                >
+                  Book Camping
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        )}
     </div>
   );
 }
